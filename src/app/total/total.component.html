@@ -1,0 +1,17 @@
+<div class="container mb-5">
+    <h3 class="display-3 text-center">Total de casos en El Salvador.</h3>
+    <h4 *ngIf="datos" class="text-center display-4">
+        {{ datos[datos.length - 1].Confirmed }} Confirmados
+    </h4>
+    <h4 *ngIf="datos" class="text-center">
+        {{ datos[datos.length - 1].Recovered }} Recuperados
+    </h4>
+    <h5 *ngIf="datos" class="text-center">
+        {{ datos[datos.length - 1].Deaths }} Muertos
+    </h5>
+    <div id="chartContainer">
+
+    </div>
+
+
+</div>

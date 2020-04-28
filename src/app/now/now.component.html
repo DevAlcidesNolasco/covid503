@@ -1,0 +1,21 @@
+<div class="container">
+    <h5 *ngIf="summary" class="text-center">
+        Casos a Nivel Mundial {{ summary.Global.TotalConfirmed }} Confirmados
+    </h5>
+    <h4 *ngIf="summary" class="display-4 text-center py-2">
+        Casos en <span class="sv-text p-2">El Salvador</span> {{ summary.Countries[65].TotalConfirmed }} confirmados. <img src="../../assets/img/bandera-sv.png" alt="FlagSVLogo">
+    </h4>
+    <h4 *ngIf="summary"  class="text-center">
+        Casos en El Salvador {{ summary.Countries[65].NewConfirmed }} confirmados solo hoy ({{ da }}/{{ mo }}/{{ye}}).
+    </h4>    
+    <h4 *ngIf="summary"  class="text-center">
+        Casos en Estados Unidos {{ summary.Countries[234].NewConfirmed }} confirmados solo hoy ({{ da }}/{{ mo }}/{{ye}}).
+    </h4>
+    <p *ngIf="summary" class="d-none">
+        {{summary.Countries[65] | json}}
+    </p>
+    <p *ngIf="summary" class="d-none">
+        {{summary.Countries[234] | json}}
+    </p>
+    <h5>Comparativa de casos Centro America</h5>
+</div>

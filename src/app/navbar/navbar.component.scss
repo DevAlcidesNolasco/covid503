@@ -1,0 +1,11 @@
+nav.navbar *{
+    font-size: 1.3rem;
+}
+.navbar-nav li.nav-item{
+    cursor: pointer;
+    
+}
+.navbar-nav li.nav-item.active{
+    border: darkorchid 2px solid;
+    border-radius: 10px;
+}
