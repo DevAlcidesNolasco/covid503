@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Informe } from './classes/informe';
+import { Summary } from './classes/summary';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 export class Covid19Service {
   constructor(private http: HttpClient) { }
   getTotales() {
-    return this.http.get('https://api.covid19api.com/total/dayone/country/El%20Salvador');
+    return this.http.get<Informe[]>('https://api.covid19api.com/total/dayone/country/El%20Salvador');
   }
   getSummarys() {
-    return this.http.get('https://api.covid19api.com/summary');
+    return this.http.get<Summary>('https://api.covid19api.com/summary');
   }
   getTotalesHN() {
     return this.http.get('https://api.covid19api.com/total/dayone/country/Honduras');

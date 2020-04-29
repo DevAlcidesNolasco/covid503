@@ -1,7 +1,7 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Covid19Service } from '../covid19.service';
 import * as CanvasJS from '../../assets/js/canvasjs.min.js';
-import { Observable } from 'rxjs';
+import { Summary } from '../classes/summary';
 
 @Component({
   selector: 'app-now',
@@ -9,23 +9,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./now.component.scss']
 })
 export class NowComponent implements OnInit {
-  summary;
+  public summary: Summary;
   public d = new Date();
   public ye = new Intl.DateTimeFormat('es', { year: 'numeric' }).format(this.d);
   public mo = new Intl.DateTimeFormat('es', { month: 'long' }).format(this.d);
   public da = new Intl.DateTimeFormat('es', { day: '2-digit' }).format(this.d);
 
   constructor(private covid19: Covid19Service) {
-    
-
-    this.covid19.getTotales();
-
-  }
-  ngOnInit() {
     this.covid19.getSummarys().subscribe(summary => {
       this.summary = summary;
-      //console.log(this.summary.Countries);
-      let chart = new CanvasJS.Chart("chartContainerCA", {
+      console.log(this.summary);
+      var chart = new CanvasJS.Chart("chartCurveCA", {
         animationEnabled: true,
         exportEnabled: true,
         title: {
@@ -44,10 +38,12 @@ export class NowComponent implements OnInit {
           ]
         }]
       });
-  
+
       chart.render();
-    });    
-    console.log(this.summary);
+    });
+  }
+  ngOnInit() {
+
   }
 
 }

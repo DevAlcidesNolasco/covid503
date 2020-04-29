@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Covid19Service } from '../covid19.service';
 import * as CanvasJS from '../../assets/js/canvasjs.min.js';
+import { Informe } from '../classes/informe';
 
 @Component({
   selector: 'app-total',
@@ -8,21 +9,28 @@ import * as CanvasJS from '../../assets/js/canvasjs.min.js';
   styleUrls: ['./total.component.scss']
 })
 export class TotalComponent implements OnInit {
-  public datos;
-  //public grafica = null;
+  public informes: Array<Informe>;
   constructor(private covid19: Covid19Service) {
     this.covid19.getTotales().subscribe(datos => {
-      this.datos = datos;      
-      let dataPoints = [];
-      let dataPointsDeaths = [];
-      let dataPointsRecovered = [];
-      let size = Object.keys(datos).length;
-      console.log(size);
-      for (let i = 0; i < (size); i++) {
-        dataPoints.push({ y: datos[i].Confirmed, x: new Date(datos[i].Date.substring(0, 4), (datos[i].Date.substring(5, 7) - 1), datos[i].Date.substring(8, 10)) });
-        dataPointsDeaths.push({ y: datos[i].Deaths, x: new Date(datos[i].Date.substring(0, 4), (datos[i].Date.substring(5, 7) - 1), datos[i].Date.substring(8, 10)) });
-        dataPointsRecovered.push({ y: datos[i].Recovered, x: new Date(datos[i].Date.substring(0, 4), (datos[i].Date.substring(5, 7) - 1), datos[i].Date.substring(8, 10)) });
-      }
+      this.informes = datos;
+      let dataPoints = this.informes.map(a => ({
+        y: a.Confirmed,
+        x: new Date(
+          a.Date
+        )
+      }));
+      let dataPointsDeaths = this.informes.map(a => ({
+        y: a.Deaths,
+        x: new Date(
+          a.Date
+        )
+      }));           
+      let dataPointsRecovered = this.informes.map(a => ({
+        y: a.Recovered,
+        x: new Date(
+          a.Date
+        )
+      }));
       var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title: {
@@ -30,8 +38,12 @@ export class TotalComponent implements OnInit {
         },
         axisX: {
           valueFormatString: "DDD",
-          minimum: new Date(datos[0].Date.substring(0, 4), (datos[0].Date.substring(5, 7) - 1), datos[0].Date.substring(8, 10)),
-          maximum: new Date(datos[size - 1].Date.substring(0, 4), (datos[size - 1].Date.substring(5, 7) - 1), datos[size - 1].Date.substring(8, 10))          
+          minimum: new Date(
+            this.informes[0].Date
+          ),
+          maximum: new Date(
+            this.informes[this.informes.length - 1].Date
+          )
         },
         axisY: {
           title: "Numero de casos"
@@ -78,7 +90,6 @@ export class TotalComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
 }
