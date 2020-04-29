@@ -18,10 +18,6 @@ export class TotalComponent implements OnInit {
       let dataPointsRecovered = [];
       let size = Object.keys(datos).length;
       console.log(size);
-      //console.log(datos[size - 1].Date.substring(0, 4));
-      //console.log(datos[size - 1].Date.substring(5, 7));
-      //console.log(datos[size - 1].Date.substring(8, 10));
-      //console.log(new Date(2017, 1, 5, 23));
       for (let i = 0; i < (size); i++) {
         dataPoints.push({ y: datos[i].Confirmed, x: new Date(datos[i].Date.substring(0, 4), (datos[i].Date.substring(5, 7) - 1), datos[i].Date.substring(8, 10)) });
         dataPointsDeaths.push({ y: datos[i].Deaths, x: new Date(datos[i].Date.substring(0, 4), (datos[i].Date.substring(5, 7) - 1), datos[i].Date.substring(8, 10)) });
@@ -30,7 +26,7 @@ export class TotalComponent implements OnInit {
       var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title: {
-          text: "Casos de coronavirus"
+          text: "Curva desarrollo de coronavirus"
         },
         axisX: {
           valueFormatString: "DDD",
